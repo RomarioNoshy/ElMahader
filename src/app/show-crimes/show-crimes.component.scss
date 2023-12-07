@@ -1,0 +1,49 @@
+.overflow {
+    overflow-y: scroll;
+    height: 250px;
+    font-family: 'Droid Arabic Kufi', sans-serif;
+}
+
+.item:hover {
+    background-color: white;
+    box-shadow: 0px 0px 12px -8px black;
+    width: 95%;
+    border-right: 4px solid #0d6efd;
+}
+
+// .mat-form-field-wrapper, .mat-form-field-flex, .mat-form-field-infix {
+//     background-color: white !important;
+// }
+
+.toham .mat-form-field-flex {
+    background-color: white !important;
+}
+
+.text {
+    width: max-content;
+}
+
+// .mat-form-field-flex, .mat-form-field-infix {
+
+::-webkit-scrollbar {
+    background-color: #ffffff;
+    width: 10px;
+    // border: 1px solid #0077ff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 20px;
+    background-color: #0077ff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+

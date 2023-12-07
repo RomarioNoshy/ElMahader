@@ -1,0 +1,227 @@
+<div class="row my-5 pt-5">
+    <!-- <div *ngIf="error" [(ngModel)]="error" class="alert alert-danger mt-5">
+        {{ error }}
+    </div> -->
+    <div class="col-md-12">
+        <div class="bg-white shadow rounded-3 p-3">
+            <div class="col-md-2">
+                <h2 class="mb-3 border-bottom border-primary border-2">إضافة محضر</h2>
+            </div>
+            <form [formGroup]="judicialMinutes" class="me-auto needs-validation mb-3 d-flex flex-column" novalidate
+                (ngSubmit)="submitForm(judicialMinutes , myForm)">
+                <div class="col-md-12 d-flex justify-content-between gap-2 flex-wrap">
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>رقم المحضر</mat-label>
+                                <input matInput type="number" formControlName="policeNumber">
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="w-100">
+                            <label class="ms-2">جنح مباشرة</label>
+                            <input type="checkbox" formControlName="check" class="mt-2" />
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>سنة المحضر</mat-label>
+                                <mat-select formControlName="parYear">
+                                    <mat-option selected disabled value="">سنة المحضر</mat-option>
+                                    <mat-option *ngFor="let item of years" [value]="item">
+                                        {{item}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>جدول</mat-label>
+                                <mat-select formControlName="bcType">
+                                    <mat-option selected disabled value="">المخالفات</mat-option>
+                                    <mat-option *ngFor="let item of Tables" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>جهة القيد</mat-label>
+                                <mat-select formControlName="parentEntity">
+                                    <mat-option selected disabled value="">إختر الجهة</mat-option>
+                                    <mat-option *ngFor="let item of Entity" [value]="item.id">
+                                        {{item.entityName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================================ -->
+                <div class="col-md-12 d-flex justify-content-between my-2 gap-2 flex-wrap">
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>جهات الضبط القضائي</mat-label>
+                                <mat-select formControlName="judicialEntity">
+                                    <mat-option selected disabled value="">المخالفات</mat-option>
+                                    <mat-option *ngFor="let item of judicial" [value]="item.id">
+                                        {{item.entity_name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>كيفية الأراد</mat-label>
+                                <mat-select formControlName="inputType">
+                                    <mat-option selected disabled value="">إختر نوع الأيراد</mat-option>
+                                    <mat-option *ngFor="let item of inputDataTyps" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>مأمور الضبط القضائي</mat-label>
+                                <input matInput type="text" formControlName="creator">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>وظيفة مأمور الضبط</mat-label>
+                                <mat-select formControlName="creatorJob">
+                                    <mat-option selected disabled value="">إختر الوظيفة</mat-option>
+                                    <mat-option *ngFor="let item of jobs" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================================ -->
+                <div class="col-md-12 d-flex justify-content-between my-4 gap-2 flex-wrap">
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>ساعة تحرير المحضر</mat-label>
+                                <input matInput type="time-local" formControlName="initialTime">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field class="example-full-width rounded-2 w-100" appearance="fill">
+                                <mat-label>تاريخ تحرير المحضر</mat-label>
+                                <input matInput [(ngModel)]="selectedDate" [min]="minDate" [max]="maxDate"
+                                    [matDatepicker]="picker" formControlName="initialDate" />
+                                <mat-datepicker-toggle class="text-primary " matSuffix
+                                    [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field class="example-full-width rounded-2 w-100" appearance="fill">
+                                <mat-label>تاريخ الورود</mat-label>
+                                <input matInput [min]="selectedDate" [max]="maxDate" [matDatepicker]="Incoming"
+                                    formControlName="receivedDate" />
+                                <mat-datepicker-toggle class="text-primary " matSuffix
+                                    [for]="Incoming"></mat-datepicker-toggle>
+                                <mat-datepicker #Incoming></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="div">
+                            <mat-form-field class="example-full-width rounded-2 w-100" appearance="fill">
+                                <mat-label>تاريخ الواقعة</mat-label>
+                                <input matInput [max]="selectedDate" [matDatepicker]="Incident"
+                                    formControlName="incidentDate" />
+                                <mat-datepicker-toggle class="text-primary" matSuffix
+                                    [for]="Incident"></mat-datepicker-toggle>
+                                <mat-datepicker #Incident></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================================ -->
+                <div class="col-md-12 d-flex justify-content-between mb-3 gap-2">
+                    <div class="col-md-5 p-4 bg-body-secondary rounded-3">
+                        <div class="d-flex w-100">
+                            <app-show-crimes [DataFromParint]="criminal" [FormFromParint]="judicialMinutes"
+                                (Data)="listChecked = $event" class="w-100"></app-show-crimes>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-4 bg-body-secondary rounded-3">
+                        <div class="d-flex flex-column">
+                            <h3 class="text border-bottom border-primary border-2">تم إختيار</h3>
+                            <h3 class="">عرض الكل: {{ listChecked.length }}</h3>
+                            <hr>
+                        </div>
+                        <div class="d-flex overflow mt-5">
+                            <ul class="d-flex flex-column w-100 pe-0 ps-2 pt-2">
+                                <li *ngFor="let item of listChecked"
+                                    class="bg-white pt-2 pe-2 mb-2 w-100 rounded-3 item">
+                                    <div class="d-flex px-2 pt-2">
+                                        <p class="h6" formControlName="charges">{{ item.name }}</p>
+                                        <div (click)="moveItem(item, listChecked, criminal)" (click)="removeItem(item)"
+                                            class="me-auto">
+                                            <i class="fa-regular fa-circle-xmark fs-5" style="color: #c20f0f"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <label class="fw-bold">موضوع المحضر:</label>
+                    <div class="textArea my-3 rounded-3">
+                        <angular-editor [(ngModel)]="arabicText" [placeholder]="'أكتب هنا .....'"
+                            formControlName="parDetails" [config]="editorConfig"></angular-editor>
+                        <!-- <p>{{arabicText}}</p> -->
+                    </div>
+                </div>
+                <button [disabled]="judicialMinutes.invalid" (click)="pushArrayToFormArray()" type="submit" class="">
+                    <span>حفظ</span>
+                    <!-- <i class="fas fa-spinner fa-spin"></i> -->
+                </button>
+            </form>
+
+        </div>
+        <mat-progress-bar *ngIf="isLoding" class="rounded-3" mode="indeterminate"></mat-progress-bar>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>

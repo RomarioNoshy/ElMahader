@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+        <div class="p-5 rounded-3 log shadow d-flex flex-column justify-content-center">
+            <div class="text-center">
+                <h3>تسجيل الدخول</h3>
+            </div>
+            <form [formGroup]="loginForm" class="d-flex flex-column align-items-center w-100">
+                <mat-form-field class="example-full-width rounded-5 w-75" appearance="fill">
+                    <mat-label>اسم المستخدم</mat-label>
+                    <input type="text" formControlName="userName"  matInput placeholder="اسم المستخدم">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width text-right w-75" appearance="fill">
+                    <mat-label class="text-right">الرقم السري</mat-label>
+                    <input type="password" formControlName="userPassword" matInput placeholder="الرقم السري">
+                </mat-form-field>
+                <div>
+                    <button [disabled]="loginForm.invalid" class="btn btn-primary text-center" type="submit">دخول</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

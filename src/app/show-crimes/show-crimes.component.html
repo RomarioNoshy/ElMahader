@@ -1,0 +1,21 @@
+<div class="w-100 toham">
+    <h3 class="border-bottom border-primary border-2 text">التهم</h3>
+    <div class="d-flex">
+        <h3 class="ms-3 ">متاح للأختيار:</h3>
+        <h3 class="ms-3">{{(DataFromParint | filter: text).length }}</h3>
+    </div>
+    <div class="w-100">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>أبحث عن تهمة...</mat-label>
+            <input matInput [(ngModel)]="text" type="text" class="">
+        </mat-form-field>
+        <!-- <input [(ngModel)]="text" type="text" class="form-control w-100 m-1" placeholder="ترشيح التهم"> -->
+    </div>
+    <div class="overflow d-flex w-100 mt-2">
+        <mat-nav-list>
+            <a class="item rounded-3" mat-list-item (click)="moveItem(one, DataFromParint, listChecked)"
+                (click)="sendlastChecked()" *ngFor="let one of DataFromParint|filter:text; let i=index">
+                {{ one.name }}</a>
+        </mat-nav-list>
+    </div>
+</div>

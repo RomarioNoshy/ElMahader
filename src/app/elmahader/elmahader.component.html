@@ -1,0 +1,82 @@
+<div class="row my-5 pt-5">
+  <mat-form-field>
+    <mat-label class="rtl">بحث</mat-label>
+    <div class="d-flex">
+
+      <input matInput #PoliceNumper [(ngModel)]="query" (keydown.enter)="search(query)">
+      <!-- <button type="search" (click)="search(query)" class="btn btn-primary">Search</button> -->
+    </div>
+
+  </mat-form-field>
+
+  <div class="col-md-12">
+    <div class="example-container mat-elevation-z8 text-center">
+      <mat-table #table [dataSource]="PoliceReports" class="text-center rounded-3">
+
+        <!-- bcNumber Column -->
+        <ng-container matColumnDef="bcNumber">
+          <mat-header-cell *matHeaderCellDef class="h6"> الرقم القضائي</mat-header-cell>
+          <mat-cell [class]="PoliceReports.length < 0 ? 'placeholder' : 'bg-danger'" *matCellDef="let element">
+            {{element.bcNumber}} </mat-cell>
+        </ng-container>
+
+        <!-- entityName Column -->
+        <ng-container matColumnDef="entityName">
+          <mat-header-cell *matHeaderCellDef class="h6"> الجهة المحررة</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.entityName}} </mat-cell>
+        </ng-container>
+
+        <!-- name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef class="h6"> كيفية الأيراد</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- creator Column -->
+        <ng-container matColumnDef="creator">
+          <mat-header-cell *matHeaderCellDef class="h6"> مأمور الضبط</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.creator}} </mat-cell>
+        </ng-container>
+
+        <!-- submittedDate Column -->
+        <ng-container matColumnDef="submittedDate">
+          <mat-header-cell *matHeaderCellDef class="h6"> تاريخ المحضر</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.submittedDate}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="originEntityName">
+          <mat-header-cell *matHeaderCellDef class="h6"> مأمور الضبط</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.originEntityName}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <nav aria-label="Page navigation example p-3">
+        <div class="pagination d-flex justify-content-around align-items-center bg-body-secondary rounded-5 w-75 p-2">
+          <!-- <button (click)="getPoliceReports()" class="btn btn-primary ">الأولي</button> -->
+          <div class="d-flex flex-grow-1 justify-content-center">
+            <span class="ms-2">عدد الصفحات</span>
+            <h4 class="text-primary bg-white rounded-5 pageNo fw-bold"> {{totalPages}}</h4>
+          </div>
+          <div
+            class=" paginagtion bg-white d-flex justify-content-around align-items-center flex-grow-1 px-2 rounded-4 border border-primary">
+            <span matTooltip="السابق" (click)="getPage('prev')"><i class="fa-solid fa-forward fs-3 " style="color: 
+              #0d6efd;"></i></span>
+            <div class="d-flex flex-grow-1 justify-content-center">
+              <h4 *ngIf="pageNumber >= 0" class="text-primary bg-white rounded-5 pageNo fw-bold"> {{pageNumber +1}}</h4>
+            </div>
+            <span matTooltip="التالي" (click)="getPage('next')"><i class="fa-solid fa-backward fs-3" style="color: 
+              #0d6efd;"></i></span>
+          </div>
+
+        </div>
+
+      </nav>
+    </div>
+
+  </div>
+
+</div>

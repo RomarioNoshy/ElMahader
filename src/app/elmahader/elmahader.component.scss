@@ -1,0 +1,53 @@
+table {
+    width: 100%;
+    -o-border-radius: 15px !important;
+    -webkit-border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    -ms-border-radius: 15px !important;
+    border-radius: 15px !important;
+    
+}
+
+.mat-table {
+    padding: 0 8px !important;
+}
+th{
+    text-align: center !important;
+
+}
+
+.mat-form-field {
+    text-align: right !important;
+}
+
+
+.mat-header-cell,.mat-cell {
+    justify-content: center;
+    display: flex;
+    flex: 1;
+}
+
+nav {
+    padding: 8px !important;
+    display: flex;
+    justify-content: center;
+}
+
+li, span{
+    cursor: pointer !important;
+}
+
+button {
+    width: 80px;
+}
+
+.pageNo {
+    width: 25px;
+    height: 25px;
+    margin: 0 !important;
+}
+
+.cdk-row:hover{
+    background-color: rgb(230, 235, 235) !important;
+    box-shadow: 0px 0px 2px 0px black;
+}

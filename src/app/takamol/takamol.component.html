@@ -1,0 +1,151 @@
+<div class="row mt-5 pt-5 align-content-center">
+    <div class="col-md-12">
+        <div class="bg-white p-3 rounded-3 inputs shadow mb-4">
+            <div class="col-md-3">
+                <h2 class="mb-4 border-bottom border-primary border-2">إحصائيات تكامل المحاكم</h2>
+            </div>
+            <form class="d-flex flex-column" [formGroup]="elTakamolForm" (ngSubmit)="showResults() ; statisticssData()">
+                <div class="row justify-content-around">
+                    <div class="col-md-12 d-flex flex-wrap">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label>أختر نيابة استئناف</mat-label>
+                                    <mat-select formControlName="Estanaf">
+                                        <mat-option *ngFor="let item of resumptionss" [value]="item.id"
+                                            (click)="onAreaListControlChanged(item.id)"
+                                            (click)="parens() ; resetThreeFields()">
+                                            {{item.entityName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label>أختر نيابة كلية</mat-label>
+                                    <mat-select formControlName="Kolia">
+                                        <mat-option *ngFor="let item of parensData" [value]="item.id"
+                                            (click)="onAreaListControlChanged2(item.id)" (click)="partials()">
+                                            {{item.entityName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label>أختر نيابة جزئية</mat-label>
+                                    <mat-select formControlName="gozaia">
+                                        <mat-option *ngIf="partialsData.length <= 0" [value]="0">لايوجد
+                                            جزئية</mat-option>
+                                        <mat-option *ngFor="let item of partialsData" [value]="item.id" (click)="
+                                        onAreaListControlChanged3(item.id)" (click)="Circles()">
+                                            {{item.entityName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label>أختر دائرة </mat-label>
+                                    <mat-select formControlName="circle">
+                                        <mat-option *ngIf="CirclesData.length <= 0" [value]="0">لايوجد
+                                            دوائر</mat-option>
+                                        <mat-option *ngFor="let item of CirclesData" [value]="item.circleId" (click)="
+                                            onAreaListControlChanged4(item.circleId)" (click)="CourtCirclesDates()">
+                                            {{item.circleName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <mat-form-field appearance="fill" class="w-75">
+                                    <mat-label>تواريخ الجلسات </mat-label>
+                                    <mat-select formControlName="CourtCircles">
+                                        <mat-option *ngIf="courtCircleDates.length <= 0" [value]="0">لايوجد
+                                            تواريخ</mat-option>
+                                        <mat-option *ngFor="let item of courtCircleDates" [value]="item.hearingDate">
+                                            {{item.hearingDate}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 m-auto">
+                            <div class="me-4">
+                                <div class="d-flex align-content-center justify-content-center submit">
+                                    <button class="" type="submit" [disabled]="elTakamolForm.invalid">
+                                        بــــحث</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ========================show Data ========================== -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="bg-white p-2 rounded-3 text-center shadow">
+            <mat-radio-group aria-label="Select an option" class="">
+                <mat-radio-button (click)="allData()" value='' [checked]="Statisticss.length > 0"> <span
+                        class="mx-2 active">الكل</span></mat-radio-button>
+                <mat-radio-button (click)="filterData('Y')" value='Y'><span class="mx-2">تم
+                        الأرسال</span></mat-radio-button>
+                <mat-radio-button (click)="filterData('N')" value='N'><span class="mx-2">لم يتم
+                        الأرسال</span></mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+    </div>
+</div>
+<div class="row mb-5">
+    <div class="col-md-12">
+        <div class="example-container mat-elevation-z8 text-center">
+            <mat-table #table [dataSource]="Statisticss" class="text-center rounded-3">
+                <!-- bcNumber Column -->
+                <ng-container matColumnDef="caseNumber">
+                    <mat-header-cell *matHeaderCellDef class="h6"> رقم القضية</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        {{element.caseNumber}} / {{element.caseYear}} / {{element.caseTypeName}} /
+                        {{element.policeName}} </mat-cell>
+                </ng-container>
+
+                <!-- entityName Column -->
+                <ng-container matColumnDef="dayera">
+                    <mat-header-cell *matHeaderCellDef class="h6"> دائرة</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.dayera}} </mat-cell>
+                </ng-container>
+
+                <!-- name Column -->
+                <ng-container matColumnDef="hearingDateTrunc">
+                    <mat-header-cell *matHeaderCellDef class="h6"> تاريخ الجلسة</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.hearingDateTrunc}} </mat-cell>
+                </ng-container>
+
+                <!-- creator Column -->
+                <ng-container matColumnDef="sentToCourt">
+                    <mat-header-cell *matHeaderCellDef class="h6"> تم الأرسال</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.sentToCourt}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-progress-bar *ngIf="isLoding" mode="indeterminate"></mat-progress-bar>
+        </div>
+    </div>
+</div>
